@@ -1,13 +1,7 @@
 import './style.css';
-import { createDiaryButtonInDom, createDiariesFromLocalStorage } from './DOM-creation-functions-left-side.js';
-import { pushToDiariesArray, diaries } from './diary-list-handling.js';
-import { randomizeSvgWallpaper } from './ui-functions.js';
 import { getDataFromLocalStorage } from './local-storage-handling.js';
-import { attributionMenu } from './attribution-menu.js';
 
-createDiaryButtonInDom();
-randomizeSvgWallpaper(document.body);
-document.addEventListener('DOMContentLoaded', () => {
+/* document.addEventListener('DOMContentLoaded', () => {
   const localStorageDiaries = getDataFromLocalStorage();
   if (localStorageDiaries) {
     const parsedDiaries = JSON.parse(localStorageDiaries);
@@ -23,7 +17,4 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     });
   }
-  console.log(diaries);
-  createDiariesFromLocalStorage();
-  attributionMenu();
-});
+}); */
