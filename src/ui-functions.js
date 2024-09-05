@@ -18,12 +18,7 @@ export function searchButtonHoverEffect() {
   });
 }
 
-export function searchInputLocationEffect() {
+export function setInputLocation() {
   const locationIcon = document.getElementById('location-icon');
   locationIcon.src = locationicon;
-
-  const input = document.getElementById('location-search');
-
-  searchIcon.style.bottom = '-70%';
-  searchIcon.style.opacity = 0;
 }

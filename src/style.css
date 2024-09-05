@@ -88,6 +88,8 @@ body {
   border-radius: 5px;
 }
 
+/* header */
+
 .search-wrapper {
   height: 20%;
   /*   background-color: rgba(255, 255, 255, 0.089); */
@@ -189,4 +191,23 @@ input:focus {
   left: 80%;
   height: 32px;
   width: 32px;
+}
+
+/* Weather Data */
+
+.greet-animation-wrapper {
+  margin-inline: auto;
+  height: 700px;
+  width: 700px;
+}
+
+.greeting-text {
+  width: 50%;
+  margin-top: 20px;
+  font-size: 2rem;
+  margin-inline: auto;
+  text-align: center;
+  color: rgb(142, 230, 252);
+  background-color: rgba(77, 141, 160, 0.733);
+  border-radius: 10px;
 }

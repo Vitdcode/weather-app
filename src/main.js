@@ -1,5 +1,9 @@
 import './style.css';
-import { searchButtonHoverEffect, searchInputLocationEffect } from './ui-functions';
+import { searchButtonHoverEffect, setInputLocation } from './ui-functions';
+import { fetchLocation } from './data-handling';
+import { initialGreet } from './weather-condition';
 
 searchButtonHoverEffect();
-searchInputLocationEffect();
+setInputLocation();
+fetchLocation();
+initialGreet();
