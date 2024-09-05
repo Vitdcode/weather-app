@@ -1,3 +1,5 @@
+import { currentCondition } from './weather-condition';
+
 export let weatherData;
 export function fetchLocation() {
   const apiKey = process.env.API_KEY_VIUSAL_CROSSING;
@@ -14,7 +16,7 @@ export function fetchLocation() {
       );
       weatherData = await response.json();
       console.log(weatherData);
-      printDataInDom(weatherData);
+      currentCondition();
     } catch (error) {
       console.error('Error fetching Weather Data:', error);
     }

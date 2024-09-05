@@ -27,4 +27,13 @@ export function initialGreet() {
   return greetAnimation.play();
 }
 
-export function currentCondition() {}
+export function currentCondition() {
+  weatherInfoWrapper.innerHTML = '';
+  const currentCondWrapper = document.createElement('div');
+  const currentConditionText = createParagraph(
+    'current-condition-text',
+    `Currently: ${weatherData.description}`
+  );
+  currentCondWrapper.appendChild(currentConditionText);
+  weatherInfoWrapper.appendChild(currentCondWrapper);
+}
