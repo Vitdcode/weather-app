@@ -6,5 +6,6 @@ export default [{ languageOptions: { globals: globals.browser } }, pluginJs.conf
 module.exports = {
   rules: {
     'no-undef': 'off',
+    'no-unused-vars': ['error'],
   },
 };

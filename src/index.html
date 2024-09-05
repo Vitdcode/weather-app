@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Diary App</title>
+    <title>Weather App</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,12 +17,26 @@
   </head>
   <body>
     <div class="main-wrapper">
-      <div class="left-side">
-        <div class="left-side-headline"><h1>My Diaries</h1></div>
+      <div class="search-wrapper">
+        <form>
+          <label for="location-search">Search location</label>
+          <div class="input-text-wrapper">
+            <input
+              type="text"
+              id="location-search"
+              name="location-search"
+              required
+              autocomplete="off"
+            />
+            <img id="location-icon" alt="location icon" />
+          </div>
+          <button class="search-btn button">
+            Search
+            <img id="search-icon" alt="search icon" />
+          </button>
+        </form>
       </div>
-      <div class="right-side"></div>
+      <div class="weather-info"></div>
     </div>
-
-    <div id="background-attribution">Attribution</div>
   </body>
 </html>
