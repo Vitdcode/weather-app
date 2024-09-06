@@ -1,5 +1,7 @@
+import DOMPurify from 'dompurify';
+
 import { weatherData } from './data-handling';
-import { createParagraph } from './reusable-elements';
+import { createParagraph, createDiv } from './reusable-elements';
 
 //animation
 import lottie from 'lottie-web';
@@ -29,11 +31,13 @@ export function initialGreet() {
 
 export function currentCondition() {
   weatherInfoWrapper.innerHTML = '';
-  const currentCondWrapper = document.createElement('div');
-  const currentConditionText = createParagraph(
-    'current-condition-text',
-    `Currently: ${weatherData.description}`
+  /*  const currentCondWrapper = createDiv('current-condition-wrapper'); */
+  weatherInfoWrapper.innerHTML = DOMPurify.sanitize(
+    `<div class="current-condition-wrapper">
+          <p>Currently:</p>
+          <p class="current-temperature">${weatherData.currentConditions.temp}</p></div>`
   );
-  currentCondWrapper.appendChild(currentConditionText);
-  weatherInfoWrapper.appendChild(currentCondWrapper);
+
+  /*   currentCondWrapper.appendChild(currentConditionText); */
+  /*  weatherInfoWrapper.appendChild(currentCondWrapper); */
 }

@@ -16,6 +16,7 @@
 
 rgb(245, 245, 220); */
 body {
+  position: relative;
   background-image: var(--svg-background-image3);
   background-size: cover;
   background-repeat: no-repeat;
@@ -86,6 +87,46 @@ body {
   width: 65%;
   backdrop-filter: blur(8px);
   border-radius: 5px;
+}
+
+/* initial unit selector window */
+
+.initial-unit-selector-window {
+  font-size: 1.3rem;
+  height: 800px;
+  width: 500px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 10px;
+  gap: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: var(--svg-background-image1);
+  background-repeat: no-repeat;
+  background-size: cover;
+  will-change: background-image;
+  box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.664);
+  z-index: 2;
+}
+
+.backdrop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  will-change: backdrop-filter;
+  transform: translate3d(0, 0, 0);
+  z-index: 1;
+}
+
+.clear-storage {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 /* header */
@@ -207,3 +248,10 @@ input:focus {
 }
 
 /* Weather Data */
+
+.current-condition-wrapper {
+}
+
+.current-condition-wrapper > p:first-of-type {
+  font-size: 1.9rem;
+}

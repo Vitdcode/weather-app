@@ -1,9 +1,15 @@
 import './style.css';
 import { searchButtonHoverEffect, setInputLocation } from './ui-functions';
-import { fetchLocation } from './data-handling';
+import { initialUnitMeasurementConstructor } from './data-handling';
+import { loadLocalStorage } from './local-storage-handling';
 import { initialGreet } from './weather-condition';
 
 searchButtonHoverEffect();
 setInputLocation();
-fetchLocation();
+initialUnitMeasurementConstructor();
+loadLocalStorage();
 initialGreet();
+
+document.querySelector('.clear-storage').addEventListener('click', () => {
+  localStorage.clear();
+});
