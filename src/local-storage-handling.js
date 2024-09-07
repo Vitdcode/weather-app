@@ -1,4 +1,5 @@
-import { fetchLocation, celsiusFahrenheitSelector } from './data-handling';
+import { fetchLocation } from './data-handling';
+import { celsiusFahrenheitSelector } from './celsius-fahrenheit';
 
 export function saveToLocalStorage(unitMeasure) {
   localStorage.setItem('unitMeasure', JSON.stringify(unitMeasure));

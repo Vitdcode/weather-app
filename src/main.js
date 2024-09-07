@@ -1,8 +1,8 @@
 import './style.css';
 import { searchButtonHoverEffect, setInputLocation } from './ui-functions';
-import { initialUnitMeasurementConstructor } from './data-handling';
+import { initialUnitMeasurementConstructor } from './celsius-fahrenheit';
 import { loadLocalStorage } from './local-storage-handling';
-import { initialGreet } from './weather-condition';
+import { initialGreet } from './animations';
 
 searchButtonHoverEffect();
 setInputLocation();

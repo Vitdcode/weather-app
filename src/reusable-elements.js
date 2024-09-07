@@ -10,3 +10,9 @@ export function createDiv(className) {
   div.classList.add(className);
   return div;
 }
+
+export function createImg(className) {
+  const img = document.createElement('img');
+  img.classList.add(className);
+  return img;
+}
