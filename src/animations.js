@@ -2,7 +2,6 @@ import lottie from 'lottie-web';
 import greetanim from '../src/images/animation/greet.json';
 import thermocelsius from '../src/images/animation/thermometer-celsius.json';
 import thermofahrenheit from '../src/images/animation/thermometer-fahrenheit.json';
-import sunny from '../src/images/animation/sunny.json';
 
 import { createParagraph, createDiv, createImg } from './reusable-elements';
 import { weatherInfoWrapperSelector } from './weather-condition';
@@ -19,12 +18,18 @@ export function initialGreet() {
     container: greetAnimWrapper,
     renderer: 'svg',
     loop: true,
-    autoplay: true,
+    autoplay: false,
     animationData: greetanim,
+  });
+  weatherInfoWrapper.addEventListener('mouseover', function () {
+    greetAnimation.play();
+  });
+  weatherInfoWrapper.addEventListener('mouseleave', function () {
+    greetAnimation.stop();
   });
   weatherInfoWrapper.appendChild(greetingText);
   weatherInfoWrapper.appendChild(greetAnimWrapper);
-  return greetAnimation.play();
+  return greetAnimWrapper;
 }
 
 export function thermometerCelsiusAnim(parentWrapper) {
@@ -66,14 +71,64 @@ export function thermometerFahrenheitAnim(parentWrapper) {
 }
 
 export function sunnyAnim(parentWrapper) {
+  //NOTE - delete later
   const animWrapper = createDiv('sunny');
   const anim = lottie.loadAnimation({
     container: animWrapper,
     renderer: 'svg',
     loop: true,
-    autoplay: true,
+    autoplay: false,
     animationData: sunny,
   });
+  parentWrapper.addEventListener('mouseover', function () {
+    anim.play();
+  });
+  parentWrapper.addEventListener('mouseleave', function () {
+    anim.stop();
+  });
   parentWrapper.appendChild(animWrapper);
-  return anim.play();
+  return animWrapper;
+}
+
+export function partiallyCloudyDayAnim(parentWrapper) {
+  //NOTE - delete later
+  const animWrapper = createDiv('sunny');
+  const anim = lottie.loadAnimation({
+    container: animWrapper,
+    renderer: 'svg',
+    loop: true,
+    autoplay: false,
+    animationData: partiallycloudyday,
+  });
+  parentWrapper.addEventListener('mouseover', function () {
+    anim.play();
+  });
+  parentWrapper.addEventListener('mouseleave', function () {
+    anim.stop();
+  });
+  parentWrapper.appendChild(animWrapper);
+  return animWrapper;
+}
+
+export function weatherConditonAnimationPicker(
+  parentWrapper,
+  animationSource,
+  animWrapperClassName
+) {
+  const animWrapper = createDiv(animWrapperClassName);
+  const anim = lottie.loadAnimation({
+    container: animWrapper,
+    renderer: 'svg',
+    loop: true,
+    autoplay: false,
+    animationData: animationSource,
+  });
+  parentWrapper.addEventListener('mouseover', function () {
+    anim.play();
+  });
+  parentWrapper.addEventListener('mouseleave', function () {
+    anim.stop();
+  });
+  parentWrapper.appendChild(animWrapper);
+  return animWrapper;
 }

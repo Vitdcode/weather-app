@@ -1,5 +1,5 @@
 import { createParagraph, createDiv } from './reusable-elements';
-import { UnitMeasurement, fetchData } from './data-handling';
+import { UnitMeasurement, fetchWeatherData } from './data-handling';
 import { saveToLocalStorage, getDataFromLocalStorage } from './local-storage-handling';
 import { thermometerCelsiusAnim, thermometerFahrenheitAnim } from './animations';
 
@@ -56,7 +56,7 @@ export function celsiusFahrenheitSelector(unitMeasure) {
     unitMeasure.domTextContent = unitElement.textContent;
     unitMeasure.unit = unitMeasure.unit === 'metric' ? 'us' : 'metric';
     updateAnimation();
-    fetchData(unitMeasure);
+    fetchWeatherData(unitMeasure);
     saveToLocalStorage(unitMeasure);
   });
 }
