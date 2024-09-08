@@ -51,29 +51,9 @@ export function colorDependingOnTemperature(parrentWrapperSelector, textSelector
   }
 }
 
-/* function lazyAnimationMap() {
-  const animationMap = {
-    day: {
-      //lazy loading the imports which inlcude the path to the lottie animations
-      sunny: () => import('../src/images/animation/weather-icons/sunny.json'),
-      'partially cloudy': () => import('../src/images/animation/weather-icons/partly-cloudy-day.json'), //prettier-ignore
-      overcast: () => import('../src/images/animation/weather-icons/overcastDay.json'),
-      rain: () => import('../src/images/animation/weather-icons/rain.json'),
-    },
-    night: {
-      clear: () => import('../src/images/animation/weather-icons/clear-night.json'),
-      'partially cloudy': () => import('../src/images/animation/weather-icons/partly-cloudy-night.json'), //prettier-ignore
-      overcast: () => import('../src/images/animation/weather-icons/overcast-night.json'),
-      rain: () => import('../src/images/animation/weather-icons/rain.json'),
-    },
-  };
-  return animationMap;
-} */
-
 export function lazyAnimationMap() {
   const animationMap = {
     day: {
-      // Existing entries
       sunny: () => import('../src/images/animation/weather-icons/clear-day.json'),
       'partially cloudy': () => import('../src/images/animation/weather-icons/partly-cloudy-day.json'), //prettier-ignore
       overcast: () => import('../src/images/animation/weather-icons/overcast-day.json'),
@@ -93,7 +73,6 @@ export function lazyAnimationMap() {
       'extreme heat': () => import('../src/images/animation/weather-icons/extreme-day.json'),
     },
     night: {
-      // Existing entries
       clear: () => import('../src/images/animation/weather-icons/clear-night.json'),
       'partially cloudy': () => import('../src/images/animation/weather-icons/partly-cloudy-night.json'), //prettier-ignore
       overcast: () => import('../src/images/animation/weather-icons/overcast-night.json'),
@@ -116,21 +95,7 @@ export function lazyAnimationMap() {
   return animationMap;
 }
 
-function helperFunctionWeatherConditionSplit() {
-  // if weather condition includes multiple words, return the first one
-  if (weatherCondition.includes(' ')) {
-    const weatherCondSplit = weatherCondition
-      .toLowerCase()
-      .replace(/[^\w\s]/g, '')
-      .split(' ');
-    return weatherCondSplit[0];
-  } else {
-    return weatherCondition.toLowerCase();
-  }
-}
-
 export function weatherConditionIconEvaluation(weatherCondition, parentWrapper) {
-  console.log(weatherCondition.toLowerCase());
   const currentTime = new Date().getTime();
   const sunsetTime = getSunset();
   const dayTime = currentTime < sunsetTime;
@@ -158,9 +123,10 @@ export function weatherConditionIconEvaluation(weatherCondition, parentWrapper) 
   }
 
   for (const key in animationMap[dayNightSwitch]) {
+    //loop through animation map and pick the right animation for each weather condition
     if (key.includes(helperFunctionWeatherConditionSplit())) {
       animationMap[dayNightSwitch][key]().then((module) => {
-        console.log(module);
+        console.log(dayNightSwitch);
         weatherConditonAnimationPicker(parentWrapper, module.default, 'current-weather-animation');
         return;
       });
