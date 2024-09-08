@@ -7,7 +7,7 @@
   --svg-background-image4: url('./images/svg/stars.svg');
   --svg-background-image5: url('./images/svg/stars-fullscreen.svg');
   --svg-background-image6: url('./images/svg/sunny-background.svg');
-  --svg-background-image7: url('./images/svg/rain-background.svg');
+  --svg-background-image7: url('./images/rain-background.jpg');
   --svg-background-image8: url('./images/svg/night-background.svg');
   --svg-background-image9: url('./images/svg/day-background.svg');
   --svg-background-image3-animated-diary: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='300' height='560' preserveAspectRatio='none' viewBox='0 0 300 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1038%26quot%3b)' fill='none'%3e%3crect width='300' height='560' x='0' y='0' fill='%230e2a47'%3e%3c/rect%3e%3cpath d='M35.91 61.64 a94.3 94.3 0 1 0 188.6 0 a94.3 94.3 0 1 0 -188.6 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M114.7 511.93 a87.05 87.05 0 1 0 174.1 0 a87.05 87.05 0 1 0 -174.1 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M58.17 338.28 a60.15 60.15 0 1 0 120.3 0 a60.15 60.15 0 1 0 -120.3 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M-19.64 487.23 a99.9 99.9 0 1 0 199.8 0 a99.9 99.9 0 1 0 -199.8 0z' fill='rgba(28%2c 83%2c 142%2c 0.4)' class='triangle-float3'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1038'%3e%3crect width='300' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
@@ -91,7 +91,8 @@ body {
 
 .main-wrapper {
   background-color: rgba(206, 206, 206, 0.514);
-  height: 100vh;
+  margin-block: 20px;
+  height: 95vh;
   width: 65%;
   backdrop-filter: blur(10px);
   border-radius: 5px;
@@ -165,9 +166,10 @@ body {
   justify-content: end;
   gap: 30px;
   height: 28%;
-  background-image: var(--svg-background-image2);
+  background-image: var(--svg-background-image7);
   background-size: cover;
   background-repeat: no-repeat;
+  border-radius: 5px;
 }
 
 form {
@@ -303,6 +305,13 @@ input:focus {
 }
 
 /* Weather Data */
+
+/* Error Text when Location does not exist */
+.weather-info > p {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 2rem;
+}
 
 .current-condition-wrapper {
   position: relative;

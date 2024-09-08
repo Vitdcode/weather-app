@@ -4,10 +4,11 @@ import { weatherData, latitude, longitude } from './data-handling';
 
 /* icons and animations */
 import { weatherConditonAnimationPicker } from './animations';
-import sunny from '../src/images/animation/sunny.json';
-import clearnight from '../src/images/animation/clear-night.json';
-import partiallycloudyday from '../src/images/animation/partly-cloudy-day.json';
-import partiallycloudynight from '../src/images/animation/partly-cloudy-night.json';
+import sunnyday from '../src/images/animation/weather-icons/sunny.json';
+import clearnight from '../src/images/animation/weather-icons/clear-night.json';
+import partiallycloudyday from '../src/images/animation/weather-icons/partly-cloudy-day.json';
+import partiallycloudynight from '../src/images/animation/weather-icons/partly-cloudy-night.json';
+import overcastday from '../src/images/animation/weather-icons/overcastDay.json';
 import locationicon from '../src/images/location.png';
 import searchicon from '../src/images/search.png';
 import daybackground from '../src/images/svg/day-background.svg';
@@ -50,30 +51,119 @@ export function colorDependingOnTemperature(parrentWrapperSelector, textSelector
   }
 }
 
+/* function lazyAnimationMap() {
+  const animationMap = {
+    day: {
+      //lazy loading the imports which inlcude the path to the lottie animations
+      sunny: () => import('../src/images/animation/weather-icons/sunny.json'),
+      'partially cloudy': () => import('../src/images/animation/weather-icons/partly-cloudy-day.json'), //prettier-ignore
+      overcast: () => import('../src/images/animation/weather-icons/overcastDay.json'),
+      rain: () => import('../src/images/animation/weather-icons/rain.json'),
+    },
+    night: {
+      clear: () => import('../src/images/animation/weather-icons/clear-night.json'),
+      'partially cloudy': () => import('../src/images/animation/weather-icons/partly-cloudy-night.json'), //prettier-ignore
+      overcast: () => import('../src/images/animation/weather-icons/overcast-night.json'),
+      rain: () => import('../src/images/animation/weather-icons/rain.json'),
+    },
+  };
+  return animationMap;
+} */
+
+export function lazyAnimationMap() {
+  const animationMap = {
+    day: {
+      // Existing entries
+      sunny: () => import('../src/images/animation/weather-icons/clear-day.json'),
+      'partially cloudy': () => import('../src/images/animation/weather-icons/partly-cloudy-day.json'), //prettier-ignore
+      overcast: () => import('../src/images/animation/weather-icons/overcast-day.json'),
+      rain: () => import('../src/images/animation/weather-icons/rain.json'),
+      drizzle: () => import('../src/images/animation/weather-icons/drizzle.json'),
+      thunderstorm: () => import('../src/images/animation/weather-icons/thunderstorms-day.json'),
+      snow: () => import('../src/images/animation/weather-icons/snow.json'),
+      sleet: () => import('../src/images/animation/weather-icons/sleet.json'),
+      fog: () => import('../src/images/animation/weather-icons/fog-day.json'),
+      haze: () => import('../src/images/animation/weather-icons/haze-day.json'),
+      dust: () => import('../src/images/animation/weather-icons/dust-day.json'),
+      smoke: () => import('../src/images/animation/weather-icons/smoke.json'),
+      tornado: () => import('../src/images/animation/weather-icons/tornado.json'),
+      windy: () => import('../src/images/animation/weather-icons/wind.json'),
+      hail: () => import('../src/images/animation/weather-icons/hail.json'),
+      hurricane: () => import('../src/images/animation/weather-icons/hurricane.json'),
+      'extreme heat': () => import('../src/images/animation/weather-icons/extreme-day.json'),
+    },
+    night: {
+      // Existing entries
+      clear: () => import('../src/images/animation/weather-icons/clear-night.json'),
+      'partially cloudy': () => import('../src/images/animation/weather-icons/partly-cloudy-night.json'), //prettier-ignore
+      overcast: () => import('../src/images/animation/weather-icons/overcast-night.json'),
+      rain: () => import('../src/images/animation/weather-icons/rain.json'),
+      drizzle: () => import('../src/images/animation/weather-icons/drizzle.json'),
+      thunderstorm: () => import('../src/images/animation/weather-icons/thunderstorms-night.json'),
+      snow: () => import('../src/images/animation/weather-icons/snow.json'),
+      sleet: () => import('../src/images/animation/weather-icons/sleet.json'),
+      fog: () => import('../src/images/animation/weather-icons/fog-night.json'),
+      haze: () => import('../src/images/animation/weather-icons/haze-night.json'),
+      dust: () => import('../src/images/animation/weather-icons/dust-night.json'),
+      smoke: () => import('../src/images/animation/weather-icons/smoke.json'),
+      tornado: () => import('../src/images/animation/weather-icons/tornado.json'),
+      windy: () => import('../src/images/animation/weather-icons/wind.json'),
+      hail: () => import('../src/images/animation/weather-icons/hail.json'),
+      hurricane: () => import('../src/images/animation/weather-icons/hurricane.json'),
+      'extreme cold': () => import('../src/images/animation/weather-icons/extreme-night.json'),
+    },
+  };
+  return animationMap;
+}
+
+function helperFunctionWeatherConditionSplit() {
+  // if weather condition includes multiple words, return the first one
+  if (weatherCondition.includes(' ')) {
+    const weatherCondSplit = weatherCondition
+      .toLowerCase()
+      .replace(/[^\w\s]/g, '')
+      .split(' ');
+    return weatherCondSplit[0];
+  } else {
+    return weatherCondition.toLowerCase();
+  }
+}
+
 export function weatherConditionIconEvaluation(weatherCondition, parentWrapper) {
+  console.log(weatherCondition.toLowerCase());
   const currentTime = new Date().getTime();
   const sunsetTime = getSunset();
-  if (currentTime < sunsetTime) {
-    helperFunctionWeatherEvaluationDay('sunny', sunny);
-    helperFunctionWeatherEvaluationDay('cloudy', partiallycloudyday);
+  const dayTime = currentTime < sunsetTime;
+
+  const animationMap = lazyAnimationMap();
+  let dayNightSwitch;
+
+  if (dayTime) {
+    dayNightSwitch = 'day';
   } else {
-    helperFunctionWeatherEvaluationNight('clear', clearnight);
-    helperFunctionWeatherEvaluationNight('cloudy', partiallycloudynight);
+    dayNightSwitch = 'night';
   }
 
-  function helperFunctionWeatherEvaluationDay(weatherConditionString, animationSource) {
-    if (weatherCondition.toLowerCase().includes(weatherConditionString)) {
-      weatherConditonAnimationPicker(parentWrapper, animationSource, 'current-weather-animation');
+  function helperFunctionWeatherConditionSplit() {
+    // if weather condition includes multiple words, return the first one
+    if (weatherCondition.includes(' ')) {
+      const weatherCondSplit = weatherCondition
+        .toLowerCase()
+        .replace(/[^\w\s]/g, '')
+        .split(' ');
+      return weatherCondSplit[0];
     } else {
-      console.log(`icon not found for ${weatherCondition} at daytime`);
+      return weatherCondition.toLowerCase();
     }
   }
 
-  function helperFunctionWeatherEvaluationNight(weatherConditionString, animationSource) {
-    if (weatherCondition.toLowerCase().includes(weatherConditionString)) {
-      weatherConditonAnimationPicker(parentWrapper, animationSource, 'current-weather-animation');
-    } else {
-      console.log(`icon not found for ${weatherCondition} at night time`);
+  for (const key in animationMap[dayNightSwitch]) {
+    if (key.includes(helperFunctionWeatherConditionSplit())) {
+      animationMap[dayNightSwitch][key]().then((module) => {
+        console.log(module);
+        weatherConditonAnimationPicker(parentWrapper, module.default, 'current-weather-animation');
+        return;
+      });
     }
   }
 }
@@ -97,7 +187,9 @@ export function dayNightWallpaperPicker() {
   const bodySelector = document.querySelector('body');
   const sunsetTime = getSunset();
   const currentTime = new Date().getTime();
-  if (currentTime > sunsetTime) {
+  console.log(`sunsettime: ${sunsetTime}`);
+  console.log(`currenttime: ${currentTime}`);
+  if (currentTime < sunsetTime) {
     bodySelector.style.backgroundImage = `url(${daybackground})`;
   } else {
     bodySelector.style.backgroundImage = `url(${nightbackground})`;

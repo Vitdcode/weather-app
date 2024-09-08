@@ -1,4 +1,5 @@
 import { currentCondition } from './weather-condition';
+import DOMPurify from 'dompurify';
 
 export let weatherData;
 export let longitude;
@@ -20,7 +21,7 @@ export function fetchLocation(unitMeasure) {
 export async function fetchWeatherData(unitMeasure) {
   const input = document.getElementById('location-search');
   const apiKey = process.env.API_KEY_VIUSAL_CROSSING;
-  fetchGeocode(input);
+
   try {
     const response = await fetch(
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${input.value}?unitGroup=${unitMeasure.unit}&key=${apiKey}&contentType=json`,
@@ -29,11 +30,15 @@ export async function fetchWeatherData(unitMeasure) {
       }
     );
     weatherData = await response.json();
+    fetchGeocode(input);
+    currentCondition();
     console.log(weatherData);
   } catch (error) {
+    const weatherData = document.querySelector('.weather-info');
+    weatherData.innerHTML = '';
+    weatherData.innerHTML = DOMPurify.sanitize(`<p>This location does not exist</p>`);
     console.error('Error fetching Weather Data:', error);
   }
-  currentCondition();
 }
 
 export async function fetchGeocode(input) {
