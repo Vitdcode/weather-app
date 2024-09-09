@@ -33,12 +33,13 @@ export function currentCondition() {
     'current-weather-animation'
   );
   colorDependingOnTemperature('.weather-data-wrapper', '.current-temperature');
+  forecastHours(weatherInfoWrapper);
   forecastDays(weatherInfoWrapper);
 }
 
 function forecastDays(weatherInfoWrapper) {
   const DaysForecastWrapper = createDiv('days-forecast-wrapper');
-  const daysHeader = createParagraph('days-forecast-header', '7 Days Forecast');
+  const daysHeader = createParagraph('days-forecast-header', '7 Day Forecast');
   for (let i = 1; i <= 7; i++) {
     const day = createDiv('individual-day-forecast-wrapper', `day${i}-forecast`);
     DaysForecastWrapper.appendChild(day);
@@ -48,25 +49,34 @@ function forecastDays(weatherInfoWrapper) {
   weatherInfoWrapper.insertBefore(daysHeader, DaysForecastWrapper);
 }
 
-/* function forecastDays(weatherInfoWrapper) {
-  const DaysForecastWrapper = createDiv('days-forecast-wrapper');
-  const daysHeader = createParagraph('days-forecast-header', '7 Days Forecast');
-  const day1 = createDiv('individual-day-forecast-wrapper', 'day1-forecast');
-  const day2 = createDiv('individual-day-forecast-wrapper', 'day2-forecast');
-  const day3 = createDiv('individual-day-forecast-wrapper', 'day3-forecast');
-  const day4 = createDiv('individual-day-forecast-wrapper', 'day4-forecast');
-  const day5 = createDiv('individual-day-forecast-wrapper', 'day5-forecast');
-  const day6 = createDiv('individual-day-forecast-wrapper', 'day6-forecast');
-  const day7 = createDiv('individual-day-forecast-wrapper', 'day7-forecast');
-  weatherInfoWrapper.appendChild(daysHeader);
-  DaysForecastWrapper.append(day1, day2, day3, day4, day5, day6, day7);
-  weatherInfoWrapper.appendChild(DaysForecastWrapper);
+function forecastHours(weatherInfoWrapper) {
+  const hoursForecastWrapper = createDiv('hours-forecast-wrapper');
+  const hoursHeader = createParagraph('hours-forecast-header', 'Hourly Forecast');
 
-  const daysArray = [day1, day2, day3, day4, day5, day6, day7];
-  for (let i = 0; i < daysArray.length; i++) {
-    daysForecastData(daysArray[i], i, `day${i + 1}-forecast`);
+  for (let i = 1; i <= 24; i++) {
+    const hour = createDiv('individual-hour-forecast-wrapper', `hour${i}-forecast`);
+    hoursForecastWrapper.appendChild(hour);
+    weatherInfoWrapper.appendChild(hoursForecastWrapper);
+    hoursForecastData(hour, i - 1, `hour${i}-forecast`);
   }
-} */
+  weatherInfoWrapper.insertBefore(hoursHeader, hoursForecastWrapper);
+}
+
+function hoursForecastData(hour, arrayPosition, id) {
+  hour.innerHTML = DOMPurify.sanitize(
+    `<p>${weatherData.days[0].hours[arrayPosition].datetime}</p> 
+   <p>${weatherData.days[0].hours[arrayPosition].temp}${fahrenHeitCelsiusChar()}</p>
+   <p>${weatherData.days[0].hours[arrayPosition].conditions}</p>
+
+  `
+  );
+
+  weatherConditionIconEvaluation(
+    weatherData.days[0].hours[arrayPosition].conditions,
+    document.querySelector(`#${id}`),
+    'hours-forecast-animation'
+  );
+}
 
 function daysForecastData(day, arrayPosition, id) {
   day.innerHTML = DOMPurify.sanitize(

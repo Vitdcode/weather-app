@@ -4,11 +4,6 @@ import { weatherData, latitude, longitude } from './data-handling';
 
 /* icons and animations */
 import { weatherConditonAnimationPicker } from './animations';
-import sunnyday from '../src/images/animation/weather-icons/sunny.json';
-import clearnight from '../src/images/animation/weather-icons/clear-night.json';
-import partiallycloudyday from '../src/images/animation/weather-icons/partly-cloudy-day.json';
-import partiallycloudynight from '../src/images/animation/weather-icons/partly-cloudy-night.json';
-import overcastday from '../src/images/animation/weather-icons/overcastDay.json';
 import locationicon from '../src/images/location.png';
 import searchicon from '../src/images/search.png';
 import daybackground from '../src/images/svg/day-background.svg';
@@ -122,6 +117,7 @@ export function weatherConditionIconEvaluation(
   const currentTime = new Date().getTime();
   const sunsetTime = getSunset();
   const dayTime = currentTime < sunsetTime;
+  console.log(dayTime);
 
   const animationMap = lazyAnimationMap();
   let dayNightSwitch;
