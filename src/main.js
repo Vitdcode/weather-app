@@ -1,6 +1,6 @@
 import './style.css';
 import { searchButtonHoverEffect, setInputLocation } from './ui-functions';
-import { initialUnitMeasurementConstructor } from './celsius-fahrenheit';
+import { initialUnitMeasurementConstructor } from './us-metric-formatting';
 import { loadLocalStorage } from './local-storage-handling';
 import { initialGreet } from './animations';
 

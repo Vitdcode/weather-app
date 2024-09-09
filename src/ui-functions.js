@@ -39,15 +39,34 @@ export function setInputLocation() {
 export function colorDependingOnTemperature(parrentWrapperSelector, textSelector) {
   const weatherDataWrapper = document.querySelector(parrentWrapperSelector);
   const temperatureText = document.querySelector(textSelector);
-  if (weatherData.currentConditions.temp >= 27) {
-    temperatureText.style.color = 'rgb(204, 73, 12)';
-    weatherDataWrapper.style.backgroundColor = 'rgba(218, 111, 97, 0.582)';
-  } else if (weatherData.currentConditions.temp >= 10) {
-    temperatureText.style.color = 'rgb(28, 163, 39)';
-    weatherDataWrapper.style.backgroundColor = 'rgba(125, 218, 97, 0.7)';
-  } else {
-    temperatureText.style.color = 'rgb(28, 143, 163)';
-    weatherDataWrapper.style.backgroundColor = 'rgba(97, 204, 218, 0.582)';
+  const currentUnit = document.querySelector('.unit-selector');
+  const temperature = weatherData.currentConditions.temp;
+
+  if (currentUnit.textContent === 'Unit Measurement: Celsius') {
+    if (temperature >= 27) {
+      temperatureText.style.color = 'rgb(204, 73, 12)';
+      weatherDataWrapper.style.backgroundColor = 'rgba(218, 111, 97, 0.582)';
+    } else if (temperature >= 10) {
+      temperatureText.style.color = 'rgb(28, 163, 39)';
+      weatherDataWrapper.style.backgroundColor = 'rgba(125, 218, 97, 0.7)';
+    } else {
+      temperatureText.style.color = 'rgb(28, 143, 163)';
+      weatherDataWrapper.style.backgroundColor = 'rgba(97, 204, 218, 0.582)';
+    }
+  }
+
+  if (currentUnit.textContent === 'Unit Measurement: Fahrenheit') {
+    console.log('test');
+    if (temperature >= 80) {
+      temperatureText.style.color = 'rgb(204, 73, 12)';
+      weatherDataWrapper.style.backgroundColor = 'rgba(218, 111, 97, 0.582)';
+    } else if (temperature >= 50) {
+      temperatureText.style.color = 'rgb(28, 163, 39)';
+      weatherDataWrapper.style.backgroundColor = 'rgba(125, 218, 97, 0.7)';
+    } else {
+      temperatureText.style.color = 'rgb(28, 143, 163)';
+      weatherDataWrapper.style.backgroundColor = 'rgba(97, 204, 218, 0.582)';
+    }
   }
 }
 
@@ -95,7 +114,11 @@ export function lazyAnimationMap() {
   return animationMap;
 }
 
-export function weatherConditionIconEvaluation(weatherCondition, parentWrapper) {
+export function weatherConditionIconEvaluation(
+  weatherCondition,
+  parentWrapper,
+  weatherIconWrapperClassName
+) {
   const currentTime = new Date().getTime();
   const sunsetTime = getSunset();
   const dayTime = currentTime < sunsetTime;
@@ -126,8 +149,7 @@ export function weatherConditionIconEvaluation(weatherCondition, parentWrapper) 
     //loop through animation map and pick the right animation for each weather condition
     if (key.includes(helperFunctionWeatherConditionSplit())) {
       animationMap[dayNightSwitch][key]().then((module) => {
-        console.log(dayNightSwitch);
-        weatherConditonAnimationPicker(parentWrapper, module.default, 'current-weather-animation');
+        weatherConditonAnimationPicker(parentWrapper, module.default, weatherIconWrapperClassName);
         return;
       });
     }

@@ -60,3 +60,25 @@ export function celsiusFahrenheitSelector(unitMeasure) {
     saveToLocalStorage(unitMeasure);
   });
 }
+
+export function metricDateFormatting(date) {
+  let resultDate = [];
+  const dateSplit = date.split('-');
+  for (let i = dateSplit.length - 1; i >= 0; i--) {
+    resultDate.push(dateSplit[i]);
+  }
+  resultDate = resultDate.join('.');
+  return resultDate;
+}
+
+export function fahrenHeitCelsiusChar() {
+  //depending on the current Unit the signs change in the forecast sections of the App
+  const currentUnit = document.querySelector('.unit-selector');
+  let unitChar = '';
+  if (currentUnit.textContent === 'Unit Measurement: Celsius') {
+    unitChar = '°C';
+  } else {
+    unitChar = '°F';
+  }
+  return unitChar;
+}

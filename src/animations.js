@@ -70,51 +70,12 @@ export function thermometerFahrenheitAnim(parentWrapper) {
   return animWrapper;
 }
 
-export function sunnyAnim(parentWrapper) {
-  //NOTE - delete later
-  const animWrapper = createDiv('sunny');
-  const anim = lottie.loadAnimation({
-    container: animWrapper,
-    renderer: 'svg',
-    loop: true,
-    autoplay: false,
-    animationData: sunny,
-  });
-  parentWrapper.addEventListener('mouseover', function () {
-    anim.play();
-  });
-  parentWrapper.addEventListener('mouseleave', function () {
-    anim.stop();
-  });
-  parentWrapper.appendChild(animWrapper);
-  return animWrapper;
-}
-
-export function partiallyCloudyDayAnim(parentWrapper) {
-  //NOTE - delete later
-  const animWrapper = createDiv('sunny');
-  const anim = lottie.loadAnimation({
-    container: animWrapper,
-    renderer: 'svg',
-    loop: true,
-    autoplay: false,
-    animationData: partiallycloudyday,
-  });
-  parentWrapper.addEventListener('mouseover', function () {
-    anim.play();
-  });
-  parentWrapper.addEventListener('mouseleave', function () {
-    anim.stop();
-  });
-  parentWrapper.appendChild(animWrapper);
-  return animWrapper;
-}
-
 export function weatherConditonAnimationPicker(
   parentWrapper,
   animationSource,
   animWrapperClassName
 ) {
+  const mainWrapper = document.querySelector('.main-wrapper');
   const animWrapper = createDiv(animWrapperClassName);
   const anim = lottie.loadAnimation({
     container: animWrapper,
@@ -123,10 +84,11 @@ export function weatherConditonAnimationPicker(
     autoplay: false,
     animationData: animationSource,
   });
-  parentWrapper.addEventListener('mouseover', function () {
+
+  mainWrapper.addEventListener('mouseover', function () {
     anim.play();
   });
-  parentWrapper.addEventListener('mouseleave', function () {
+  mainWrapper.addEventListener('mouseleave', function () {
     anim.stop();
   });
   parentWrapper.appendChild(animWrapper);

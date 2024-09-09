@@ -5,9 +5,10 @@ export function createParagraph(className, text) {
   return paragraph;
 }
 
-export function createDiv(className) {
+export function createDiv(className, id) {
   const div = document.createElement('div');
   div.classList.add(className);
+  div.id = id;
   return div;
 }
 

@@ -1,5 +1,5 @@
 import { fetchLocation } from './data-handling';
-import { celsiusFahrenheitSelector } from './celsius-fahrenheit';
+import { celsiusFahrenheitSelector } from './us-metric-formatting';
 import { dayNightWallpaperPicker } from './ui-functions';
 
 export function saveToLocalStorage(unitMeasure) {
