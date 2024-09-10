@@ -69,6 +69,7 @@ export function lazyAnimationMap() {
   const animationMap = {
     day: {
       sunny: () => import('../src/images/animation/weather-icons/clear-day.json'),
+      clear: () => import('../src/images/animation/weather-icons/clear-day.json'),
       'partially cloudy': () => import('../src/images/animation/weather-icons/partly-cloudy-day.json'), //prettier-ignore
       overcast: () => import('../src/images/animation/weather-icons/overcast-day.json'),
       rain: () => import('../src/images/animation/weather-icons/rain.json'),
@@ -117,7 +118,6 @@ export function weatherConditionIconEvaluation(
   const currentTime = new Date().getTime();
   const sunsetTime = getSunset();
   const dayTime = currentTime < sunsetTime;
-  console.log(dayTime);
 
   const animationMap = lazyAnimationMap();
   let dayNightSwitch;
@@ -175,7 +175,11 @@ export function dayNightWallpaperPicker() {
   console.log(`currenttime: ${currentTime}`);
   if (currentTime < sunsetTime) {
     bodySelector.style.backgroundImage = `url(${daybackground})`;
+    bodySelector.style.backgroundSize = `auto`;
+    bodySelector.style.backgroundRepeat = `round`;
   } else {
     bodySelector.style.backgroundImage = `url(${nightbackground})`;
+    bodySelector.style.backgroundSize = `auto`;
+    bodySelector.style.backgroundRepeat = `round`;
   }
 }

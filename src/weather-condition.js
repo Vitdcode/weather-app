@@ -5,7 +5,12 @@ import DOMPurify from 'dompurify';
 import { weatherData } from './data-handling';
 import { colorDependingOnTemperature, weatherConditionIconEvaluation } from './ui-functions';
 import { createDiv, createParagraph } from './reusable-elements';
-import { metricDateFormatting, fahrenHeitCelsiusChar } from './us-metric-formatting';
+import {
+  metricDateFormatting,
+  fahrenHeitCelsiusChar,
+  metricHoursFormatting,
+  weatherWarningTimelineFormatting,
+} from './us-metric-formatting';
 
 export function weatherInfoWrapperSelector() {
   const weatherInfoWrapper = document.querySelector('.weather-info');
@@ -33,6 +38,7 @@ export function currentCondition() {
     'current-weather-animation'
   );
   colorDependingOnTemperature('.weather-data-wrapper', '.current-temperature');
+  weatherAlerts(weatherInfoWrapper);
   forecastHours(weatherInfoWrapper);
   forecastDays(weatherInfoWrapper);
 }
@@ -51,7 +57,7 @@ function forecastDays(weatherInfoWrapper) {
 
 function forecastHours(weatherInfoWrapper) {
   const hoursForecastWrapper = createDiv('hours-forecast-wrapper');
-  const hoursHeader = createParagraph('hours-forecast-header', 'Hourly Forecast');
+  const hoursHeader = createParagraph('hours-forecast-header', 'Hourly Forecast for Today');
 
   for (let i = 1; i <= 24; i++) {
     const hour = createDiv('individual-hour-forecast-wrapper', `hour${i}-forecast`);
@@ -62,15 +68,38 @@ function forecastHours(weatherInfoWrapper) {
   weatherInfoWrapper.insertBefore(hoursHeader, hoursForecastWrapper);
 }
 
+function weatherAlerts(weatherInfoWrapper) {
+  const alertWrapper = createDiv('alert-wrapper');
+  if (weatherData.alerts != '') {
+    const alertHeadline = createParagraph(
+      'weather-alert-description',
+      weatherData.alerts[0].headline
+    );
+    const start = createParagraph(
+      'weather-alert-start',
+      `From ${weatherWarningTimelineFormatting(weatherData.alerts[0].onset)}`
+    );
+
+    const end = createParagraph(
+      'weather-alert-end',
+      `Until ${weatherWarningTimelineFormatting(weatherData.alerts[0].ends)}`
+    );
+
+    alertWrapper.appendChild(alertHeadline);
+    alertWrapper.appendChild(start);
+    alertWrapper.appendChild(end);
+    weatherInfoWrapper.appendChild(alertWrapper);
+  }
+}
+
 function hoursForecastData(hour, arrayPosition, id) {
   hour.innerHTML = DOMPurify.sanitize(
-    `<p>${weatherData.days[0].hours[arrayPosition].datetime}</p> 
+    `<p>${metricHoursFormatting(weatherData.days[0].hours[arrayPosition].datetime)}</p> 
    <p>${weatherData.days[0].hours[arrayPosition].temp}${fahrenHeitCelsiusChar()}</p>
    <p>${weatherData.days[0].hours[arrayPosition].conditions}</p>
 
   `
   );
-
   weatherConditionIconEvaluation(
     weatherData.days[0].hours[arrayPosition].conditions,
     document.querySelector(`#${id}`),
@@ -86,7 +115,6 @@ function daysForecastData(day, arrayPosition, id) {
 
   `
   );
-
   weatherConditionIconEvaluation(
     weatherData.days[arrayPosition].conditions,
     document.querySelector(`#${id}`),

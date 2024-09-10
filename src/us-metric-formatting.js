@@ -71,6 +71,16 @@ export function metricDateFormatting(date) {
   return resultDate;
 }
 
+export function metricHoursFormatting(hours) {
+  //removing the unneccessary 2 zeros in hours of the hourly forecast
+  let hoursArray = [];
+  hours = hours.split(':');
+  for (let i = 0; i <= 1; i++) {
+    hoursArray.push(hours[i]);
+  }
+  return (hoursArray = hoursArray.join(':'));
+}
+
 export function fahrenHeitCelsiusChar() {
   //depending on the current Unit the signs change in the forecast sections of the App
   const currentUnit = document.querySelector('.unit-selector');
@@ -81,4 +91,12 @@ export function fahrenHeitCelsiusChar() {
     unitChar = '°F';
   }
   return unitChar;
+}
+
+export function weatherWarningTimelineFormatting(DateAndTime) {
+  const dateAndTime = DateAndTime.split('T');
+  const dateFormatting = metricDateFormatting(dateAndTime[0]);
+  const hoursFormatting = metricHoursFormatting(dateAndTime[1]);
+  const resultString = `${dateFormatting} - ${hoursFormatting}`;
+  return resultString;
 }

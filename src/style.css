@@ -25,8 +25,8 @@ body {
   position: relative;
 
   /*   background-image: var(--svg-background-image9); */
-  background-size: cover;
-  background-repeat: no-repeat;
+  /*     background-size:;
+  background-repeat:; */
 
   background-color: rgb(60, 60, 60);
   display: flex;
@@ -310,7 +310,6 @@ input:focus {
 .weather-info > p {
   text-align: center;
   margin-top: 40px;
-  font-size: 2rem;
 }
 
 .measured-time {
@@ -374,6 +373,37 @@ input:focus {
   font-weight: bold;
 }
 
+/* weather warning */
+
+.alert-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 15px;
+  max-width: 400px;
+  margin-inline: auto;
+  margin-top: 30px;
+  background-color: rgba(218, 47, 47, 0.774);
+  border-radius: 5px;
+}
+
+.weather-alert-description {
+  font-size: 1.4rem;
+  margin-top: 10px;
+  text-decoration: underline;
+  border-radius: 10px;
+  /*   margin-bottom: 10px; */
+}
+
+.weather-alert-start,
+.weather-alert-end {
+  font-size: 1.2rem;
+  background-color: brown;
+  border-radius: 10px;
+  padding: 5px;
+}
 /* Hourly Forecast */
 
 .hours-forecast-wrapper {
@@ -393,13 +423,12 @@ input:focus {
 
 .hours-forecast-header {
   display: flex;
-  max-width: 300px;
+  max-width: 350px;
   margin-inline: auto;
   justify-content: center;
   border-radius: 10px;
-  padding: 5px;
-  font-size: 1.4rem;
-  margin-top: 10px;
+  font-size: 1.6rem;
+  margin-top: 100px;
   margin-bottom: 20px;
   background-color: rgba(240, 255, 255, 0.664);
 }
@@ -446,12 +475,11 @@ input:focus {
 
 .days-forecast-header {
   display: flex;
-  max-width: 300px;
+  max-width: 250px;
   margin-inline: auto;
   justify-content: center;
   border-radius: 10px;
-  padding: 5px;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   margin-top: 10px;
   margin-bottom: 20px;
   background-color: rgba(240, 255, 255, 0.664);
