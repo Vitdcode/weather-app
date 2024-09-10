@@ -171,15 +171,9 @@ export function dayNightWallpaperPicker() {
   const bodySelector = document.querySelector('body');
   const sunsetTime = getSunset();
   const currentTime = new Date().getTime();
-  console.log(`sunsettime: ${sunsetTime}`);
-  console.log(`currenttime: ${currentTime}`);
   if (currentTime < sunsetTime) {
     bodySelector.style.backgroundImage = `url(${daybackground})`;
-    bodySelector.style.backgroundSize = `auto`;
-    bodySelector.style.backgroundRepeat = `round`;
   } else {
     bodySelector.style.backgroundImage = `url(${nightbackground})`;
-    bodySelector.style.backgroundSize = `auto`;
-    bodySelector.style.backgroundRepeat = `round`;
   }
 }

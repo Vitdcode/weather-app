@@ -21,7 +21,8 @@ export function fetchLocation(unitMeasure) {
 export async function fetchWeatherData(unitMeasure) {
   const input = document.getElementById('location-search');
   const apiKey = process.env.API_KEY_VIUSAL_CROSSING;
-
+  const weatherDataWrapper = document.querySelector('.weather-info');
+  weatherDataWrapper.innerHTML = DOMPurify.sanitize('Loading...');
   try {
     const response = await fetch(
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${input.value}?unitGroup=${unitMeasure.unit}&key=${apiKey}&contentType=json`,
@@ -34,9 +35,8 @@ export async function fetchWeatherData(unitMeasure) {
     currentCondition();
     console.log(weatherData);
   } catch (error) {
-    const weatherData = document.querySelector('.weather-info');
-    weatherData.innerHTML = '';
-    weatherData.innerHTML = DOMPurify.sanitize(`<p>This location does not exist</p>`);
+    weatherDataWrapper.innerHTML = '';
+    weatherDataWrapper.innerHTML = DOMPurify.sanitize(`<p>This location does not exist</p>`);
     console.error('Error fetching Weather Data:', error);
   }
 }

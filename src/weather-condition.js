@@ -12,6 +12,12 @@ import {
   weatherWarningTimelineFormatting,
 } from './us-metric-formatting';
 
+import { weatherConditonAnimationPicker } from './animations';
+import windanimation from '../src/images/animation/weather-icons/wind.json';
+import humidtyanimation from '../src/images/animation/weather-icons/humidity.json';
+import sunrise from '../src/images/animation/weather-icons/sunrise.json';
+import sunset from '../src/images/animation/weather-icons/sunset.json';
+
 export function weatherInfoWrapperSelector() {
   const weatherInfoWrapper = document.querySelector('.weather-info');
   return weatherInfoWrapper;
@@ -19,7 +25,6 @@ export function weatherInfoWrapperSelector() {
 
 export function currentCondition() {
   const weatherInfoWrapper = weatherInfoWrapperSelector();
-  const formattedTime = weatherData.currentConditions.datetime.split(':').slice(0, 2).join(':');
   weatherInfoWrapper.innerHTML = '';
   weatherInfoWrapper.innerHTML = DOMPurify.sanitize(
     `<div class="current-condition-wrapper">
@@ -28,15 +33,48 @@ export function currentCondition() {
           <p>Currently:</p>
           <p class="current-temperature">${weatherData.currentConditions.temp}${fahrenHeitCelsiusChar()}</p>
           <p class="current-condition">${weatherData.currentConditions.conditions}</p>
-          <p class="measured-time">Measured at ${formattedTime}</p>
         </div> 
+          <div class="current-wind">
+            <p>Wind Speed</p>
+            <p>${weatherData.currentConditions.windspeed} km/h</p>
+          </div> 
+          <div class="humidity">
+            <p>Humidity</p>
+            <p>${weatherData.currentConditions.humidity} %</p>
+          </div> 
+          <div class="sunrise">
+            <p>Sunrise</p>
+            <p>${metricHoursFormatting(weatherData.currentConditions.sunrise)}</p>
+          </div> 
+           <div class="sunset">
+            <p>Sunset</p>
+            <p>${metricHoursFormatting(weatherData.currentConditions.sunset)}</p>
+          </div> 
       </div> `
   );
+
   weatherConditionIconEvaluation(
     weatherData.currentConditions.conditions,
-    document.querySelector('.current-condition-wrapper'),
+    document.querySelector('.weather-data-wrapper'),
     'current-weather-animation'
   );
+
+  weatherConditonAnimationPicker(
+    document.querySelector('.humidity'),
+    humidtyanimation,
+    'humidity-animation'
+  );
+
+  weatherConditonAnimationPicker(
+    document.querySelector('.current-wind'),
+    windanimation,
+    'wind-animation'
+  );
+
+  weatherConditonAnimationPicker(document.querySelector('.sunrise'), sunrise, 'sunrise-animation');
+
+  weatherConditonAnimationPicker(document.querySelector('.sunset'), sunset, 'sunset-animation');
+
   colorDependingOnTemperature('.weather-data-wrapper', '.current-temperature');
   weatherAlerts(weatherInfoWrapper);
   forecastHours(weatherInfoWrapper);
